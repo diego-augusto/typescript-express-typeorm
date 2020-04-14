@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express'
-import { BaseController } from './BaseController'
+import BaseController from './BaseController'
 
 export default class UserController implements BaseController {
 

@@ -1,6 +1,6 @@
 import express from 'express'
 import { Application } from 'express'
-import { BaseController } from '../controllers/BaseController'
+import BaseController from '../controllers/BaseController'
 import BaseMiddleware from '../middlewares/BaseMiddleware'
 
 export default class App {
