@@ -3,15 +3,28 @@ import UserController from "../controllers/UserController";
 import BaseController from "../controllers/BaseController";
 import LoggerMiddleware from "../middlewares/LoggerMiddeware";
 import BaseMiddleware from "../middlewares/BaseMiddleware";
+import Database from './Database';
 
-const controllers : BaseController[] = [
-    new UserController(),
-]
+export default class Setup {
 
-const miiddlewares : BaseMiddleware[] = [
-    new LoggerMiddleware(),
-]
+    static async setup() {
 
-const app = new App(controllers, miiddlewares).app
+        await Database.getConnection();
+        
+        const controllers: BaseController[] = [
+            new UserController(),
+        ]
 
-export default app;
+        const miiddlewares: BaseMiddleware[] = [
+            new LoggerMiddleware(),
+        ]
+
+        const app = new App(controllers, miiddlewares).app
+
+        return app
+    }
+}
+
+
+
+
