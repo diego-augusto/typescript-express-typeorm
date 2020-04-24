@@ -8,7 +8,11 @@ export default class Database {
     static async getConnection() {
 
         if (this.connection === null) {
-            this.connection = await createConnection()
+            const connectionName = process.env.NODE_ENV || "development"
+
+            console.log("connectionName:", connectionName)
+
+            this.connection = await createConnection(connectionName)
         }
 
         return this.connection
