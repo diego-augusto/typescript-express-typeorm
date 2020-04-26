@@ -9,9 +9,6 @@ export default class Database {
 
         if (this.connection === null) {
             const connectionName = process.env.NODE_ENV || "development"
-
-            console.log("connectionName:", connectionName)
-
             this.connection = await createConnection(connectionName)
         }
 
