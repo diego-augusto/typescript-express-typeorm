@@ -7,7 +7,7 @@ export default class UserService implements BaseService<UserRepository> {
     repository: UserRepository
 
     constructor() {
-        this.repository = getCustomRepository(UserRepository, "development")
+        this.repository = getCustomRepository(UserRepository, process.env.NODE_ENV)
     }
 
     async findAll() {
