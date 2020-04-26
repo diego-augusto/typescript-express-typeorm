@@ -1,6 +1,7 @@
-import { UserRepository } from "../repositories/UserRepository";
 import { getCustomRepository } from "typeorm";
+import { UserRepository } from "../repositories/UserRepository";
 import BaseService from "./BaseService";
+import { User } from "../entities/User";
 
 export default class UserService implements BaseService<UserRepository> {
 
@@ -14,7 +15,7 @@ export default class UserService implements BaseService<UserRepository> {
         return await this.repository.find()
     }
 
-    async finById(id: number) {
-        return await this.repository.findOne({ where: { id: id } })
+    async add(user: User) {
+        return await this.repository.save(user)
     }
 }
