@@ -15,7 +15,19 @@ export default class UserService implements BaseService<UserRepository> {
         return await this.repository.find()
     }
 
+    async findOne(id: string) {
+        return await this.repository.findOne({ where: { id } })
+    }
+
     async add(user: User) {
         return await this.repository.save(user)
+    }
+
+    async edit(id: string, user: User) {
+        return await this.repository.update(id, user)
+    }
+
+    async remove(id: string) {
+        return await this.repository.delete(id)
     }
 }
