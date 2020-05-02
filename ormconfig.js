@@ -25,7 +25,7 @@ module.exports = [
     {
         "name" : "test",
         "type": "sqlite",
-        "database": "database.test.sqlite",
+        "database": ":memory:",
         "synchronize": true,
         "logging": false,
         "entities": [
