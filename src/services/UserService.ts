@@ -3,6 +3,7 @@ import { UserRepository } from "../repositories/UserRepository";
 import BaseService from "./BaseService";
 import { User } from "../entities/User";
 import SystemException from "../expections/SystemException";
+import Messages from "../expections/Mesages";
 
 export default class UserService implements BaseService<UserRepository> {
 
@@ -24,7 +25,7 @@ export default class UserService implements BaseService<UserRepository> {
             return user
         }
 
-        throw new SystemException("User not Found", 404)
+        throw new SystemException(Messages.NOT_FOUND.message, Messages.NOT_FOUND.code)
     }
 
     async add(user: User) {
