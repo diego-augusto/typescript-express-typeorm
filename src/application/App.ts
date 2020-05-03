@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import { Application } from 'express'
 import BaseController from '../controllers/BaseController'
 import BaseMiddleware from '../middlewares/BaseMiddleware'
+import ErrorMiddleware from '../middlewares/ErrorMiddleware'
 
 export default class App {
 
@@ -12,6 +13,7 @@ export default class App {
         this.app = express()
         this.setupMiddlewares()
         this.setupControllers()
+        this.setupErrorMiddleware()
     }
 
     setupControllers() {
@@ -28,5 +30,9 @@ export default class App {
         this.miidlewares.forEach(element => {
             this.app.use(element.func)
         });
+    }
+
+    setupErrorMiddleware() {
+        this.app.use(new ErrorMiddleware().func)
     }
 }

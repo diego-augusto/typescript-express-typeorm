@@ -2,6 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repositories/UserRepository";
 import BaseService from "./BaseService";
 import { User } from "../entities/User";
+import SystemException from "../expections/SystemException";
 
 export default class UserService implements BaseService<UserRepository> {
 
@@ -16,7 +17,14 @@ export default class UserService implements BaseService<UserRepository> {
     }
 
     async findOne(id: string) {
-        return await this.repository.findOne({ where: { id } })
+
+        const user = await this.repository.findOne({ where: { id } })
+
+        if (user) {
+            return user
+        }
+
+        throw new SystemException("User not Found", 404)
     }
 
     async add(user: User) {
