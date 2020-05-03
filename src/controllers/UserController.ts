@@ -1,14 +1,13 @@
-import { Router, Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import BaseController from './BaseController'
 import UserService from '../services/UserService';
 
-export default class UserController implements BaseController {
+export default class UserController extends BaseController {
 
-    path = '/users'
-    router = Router()
     service = new UserService()
 
     constructor() {
+        super('/users')
         this.service = new UserService()
         this.router.get('/', (...args) => this.getAll(...args))
         this.router.post('/', (...args) => this.add(...args))
@@ -46,8 +45,8 @@ export default class UserController implements BaseController {
 
     async edit(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.edit(request.params.id, request.body)
-            response.status(200).json(users)
+            this.service.edit(request.params.id, request.body)
+            response.status(204).send()
         } catch (error) {
             next(error)
         }
@@ -55,8 +54,8 @@ export default class UserController implements BaseController {
 
     async remove(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.remove(request.params.id)
-            response.status(200).json(users)
+            await this.service.remove(request.params.id)
+            response.status(204).send()
         } catch (error) {
             next(error)
         }
