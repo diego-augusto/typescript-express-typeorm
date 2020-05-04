@@ -14,7 +14,7 @@ export default class AuthController {
     async signin(request: Request, response: Response, next: NextFunction) {
         try {
             const token = await this.service.sign(request.body.email, request.body.password)
-            response.status(200).json({ token: token })
+            response.status(200).json(token)
         } catch (error) {
             next(error)
         }
@@ -23,7 +23,7 @@ export default class AuthController {
     async signup(request: Request, response: Response, next: NextFunction) {
         try {
             const token = await this.service.signup(request.body)
-            response.status(200).json({ token: token })
+            response.status(200).json(token)
         } catch (error) {
             next(error)
         }

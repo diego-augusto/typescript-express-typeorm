@@ -79,6 +79,6 @@ export default class UserService implements BaseService<UserRepository> {
 
         const token = sign(payload, process.env.SECRET as string);
 
-        return token
+        return {token}
     }
 }
