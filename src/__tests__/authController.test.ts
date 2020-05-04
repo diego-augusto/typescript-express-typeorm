@@ -55,6 +55,6 @@ describe("signup", () => {
 
         expect(result.status).toEqual(200);
         expect(result.body.token).not.toBeNull();
-        expect(result.body.id).toBeGreaterThan(0);
+        expect(result.body.id).not.toBeNull();
     });
 });

@@ -46,7 +46,7 @@ export default class UserService implements BaseService<UserRepository> {
         const newUser = await this.repository.save(user)
         const token = this.generateToken(newUser)
         return {
-            id: newUser.id,
+            id: newUser.publicId,
             token: token
         }
     }
@@ -72,13 +72,13 @@ export default class UserService implements BaseService<UserRepository> {
     private generateToken(user: User) {
 
         const payload = {
-            id: user.id,
+            id: user.publicId,
             name: user.name,
             email: user.email
         }
 
         const token = sign(payload, process.env.SECRET as string);
 
-        return {token}
+        return { token }
     }
 }
