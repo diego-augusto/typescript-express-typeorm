@@ -1,8 +1,6 @@
 import App from './App'
 import UserController from "../controllers/UserController";
 import BaseController from "../controllers/BaseController";
-import LoggerMiddleware from "../middlewares/LoggerMiddeware";
-import BaseMiddleware from "../middlewares/BaseMiddleware";
 import Database from './Database';
 
 export default class Setup {
@@ -15,11 +13,11 @@ export default class Setup {
             new UserController(),
         ]
 
-        const miiddlewares: BaseMiddleware[] = [
-            new LoggerMiddleware(),
-        ]
+        // const miiddlewares: BaseMiddleware[] = [
+        //     new LoggerMiddleware(),
+        // ]
 
-        const app = new App(controllers, miiddlewares).app
+        const app = new App(controllers).app
 
         return app
     }

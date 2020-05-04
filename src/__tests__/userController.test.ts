@@ -54,7 +54,7 @@ describe("users", () => {
 
         await userRepository.save(user)
 
-        const result = await request(app).get(`/users/${user.id}`);
+        const result = await request(app).get(`/users/${user.publicId}`);
         expect(result.status).toEqual(200);
         expect(result.body).toEqual(expect.objectContaining({ email: user.email, name: user.name }));
     })

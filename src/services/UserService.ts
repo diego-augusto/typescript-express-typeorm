@@ -6,6 +6,7 @@ import SystemException from "../exceptions/SystemException";
 import Messages from "../exceptions/Messages";
 import { sign } from "jsonwebtoken";
 import { compare } from "bcryptjs";
+import TokenType from "../utils/TokenType";
 
 export default class UserService implements BaseService<UserRepository> {
 
@@ -21,7 +22,7 @@ export default class UserService implements BaseService<UserRepository> {
 
     async findOne(id: string) {
 
-        const user = await this.repository.findOne({ where: { id } })
+        const user = await this.repository.findOne({ where: { publicId: id } })
 
         if (user) {
             return user
@@ -71,7 +72,7 @@ export default class UserService implements BaseService<UserRepository> {
 
     private generateToken(user: User) {
 
-        const payload = {
+        const payload: TokenType = {
             id: user.publicId,
             name: user.name,
             email: user.email

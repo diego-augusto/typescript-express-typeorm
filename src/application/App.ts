@@ -10,7 +10,7 @@ export default class App {
 
     public app: Application
 
-    constructor(private controllers: BaseController[], private miidlewares: BaseMiddleware[]) {
+    constructor(private controllers: BaseController[], private miidlewares?: BaseMiddleware[]) {
         this.app = express()
         this.setupApp()
         this.setupAuth()
@@ -36,9 +36,11 @@ export default class App {
     }
 
     setupMiddlewares() {
-        this.miidlewares.forEach(element => {
-            this.app.use(element.func)
-        });
+        if(this.miidlewares){
+            this.miidlewares.forEach(element => {
+                this.app.use(element.func)
+            });
+        }
     }
 
     setupErrorMiddleware() {
