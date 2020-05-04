@@ -1,11 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
 import { hash, genSalt } from "bcryptjs";
+import AppEntity from "./AppEntity";
 
 @Entity()
-export class User {
-
-    @PrimaryGeneratedColumn()
-    id: number;
+export class User extends AppEntity {
 
     @Column()
     name: string;
