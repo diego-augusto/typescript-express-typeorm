@@ -2,8 +2,8 @@ import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repositories/UserRepository";
 import BaseService from "./BaseService";
 import { User } from "../entities/User";
-import SystemException from "../expections/SystemException";
-import Messages from "../expections/Mesages";
+import SystemException from "../exceptions/SystemException";
+import Messages from "../exceptions/Messages";
 
 export default class UserService implements BaseService<UserRepository> {
 

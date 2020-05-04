@@ -2,8 +2,8 @@ import { Router } from 'express'
 
 export default class BaseController {
 
-    protected router: Router
-    protected path: string
+    public router: Router
+    public path: string
 
     constructor(path: string) {
         this.router = Router()

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import BaseMiddleware from './BaseMiddleware'
-import SystemException from '../expections/SystemException'
+import SystemException from '../exceptions/SystemException'
 
 export default class LoggerMiddleware implements BaseMiddleware {
     

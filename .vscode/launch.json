@@ -15,7 +15,12 @@
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+            "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            "env": {
+                "PORT": "8001",
+                "NODE_ENV": "development",
+                "SECRET" : "supersecret"
+			}
         },
         {
             "type": "node",
@@ -30,7 +35,7 @@
                 "${workspaceFolder}/dest/**/*.js"
             ],
             "env": {
-                "PORT": "8001",
+                "PORT": "8000",
                 "NODE_ENV": "development"
             }
         },
@@ -44,7 +49,10 @@
 			"protocol": "inspector",
 			"internalConsoleOptions": "openOnSessionStart",
 			"env": {
-				"TS_NODE_IGNORE": "false"
+                "TS_NODE_IGNORE": "false",
+                "PORT": "8000",
+                "NODE_ENV": "development",
+                "SECRET" : "supersecret"
 			}
 		}
     ]
