@@ -10,7 +10,6 @@ export default class UserController extends BaseController {
         super('/users')
         this.service = new UserService()
         this.router.get('/', (...args) => this.getAll(...args))
-        this.router.post('/', (...args) => this.add(...args))
         this.router.get('/:id', (...args) => this.getOne(...args))
         this.router.put('/:id', (...args) => this.edit(...args))
         this.router.delete('/:id', (...args) => this.remove(...args))

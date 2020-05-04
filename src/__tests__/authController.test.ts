@@ -43,3 +43,18 @@ describe("signin", () => {
         expect(result.body.token).not.toBeNull();
     });
 });
+
+describe("signup", () => {
+    test("valid user", async () => {
+
+        const result = await request(app).post("/signup").send({
+            name: "New User",
+            email: "user@email.com",
+            password: "User@1234",
+        });
+
+        expect(result.status).toEqual(200);
+        expect(result.body.token).not.toBeNull();
+        expect(result.body.id).not.toBeNull();
+    });
+});

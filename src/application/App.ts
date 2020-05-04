@@ -4,8 +4,7 @@ import { Application } from 'express'
 import BaseController from '../controllers/BaseController'
 import BaseMiddleware from '../middlewares/BaseMiddleware'
 import ErrorMiddleware from '../middlewares/ErrorMiddleware'
-import SigninController from '../controllers/SignController'
-
+import AuthController from '../controllers/AuthController'
 
 export default class App {
 
@@ -14,9 +13,8 @@ export default class App {
     constructor(private controllers: BaseController[], private miidlewares: BaseMiddleware[]) {
         this.app = express()
         this.setupApp()
-        this.setupSignin()
+        this.setupAuth()
         this.setupControllers()
-        // this.setupMiddlewares()
         this.setupErrorMiddleware()
     }
 
@@ -25,9 +23,10 @@ export default class App {
         this.app.use(bodyParser.json())
     }
 
-    setupSignin() {
-        const signinController = new SigninController()
-        this.app.post('/signin', signinController.signin)
+    setupAuth() {
+        const authController = new AuthController()
+        this.app.post('/signin', authController.signin)
+        this.app.post('/signup', authController.signup)
     }
 
     setupControllers() {
@@ -35,7 +34,6 @@ export default class App {
             this.app.use(element.path, element.router)
         });
     }
-
 
     setupMiddlewares() {
         this.miidlewares.forEach(element => {
