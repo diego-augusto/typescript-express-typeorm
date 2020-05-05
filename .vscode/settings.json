@@ -1,0 +1,19 @@
+{
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "editor.rulers": [
+        80
+    ],
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff0000"
+    },
+    "editor.fontSize": 18,
+    "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Dracula",
+    "workbench.sideBar.location": "right",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    }
+}

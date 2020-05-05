@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
+import { Entity, Column, BeforeInsert, OneToMany } from "typeorm";
 import { hash, genSalt } from "bcryptjs";
 import AppEntity from "./AppEntity";
+import { Store } from "./Store";
 
 @Entity()
 export class User extends AppEntity {
@@ -13,6 +14,9 @@ export class User extends AppEntity {
 
     @Column()
     password: string;
+
+    @OneToMany(type => Store, store => store.user)
+    stores: Store[];
 
     @BeforeInsert()
     async hashPassword() {

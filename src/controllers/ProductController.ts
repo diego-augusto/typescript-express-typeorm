@@ -1,16 +1,17 @@
 import { Request, Response, NextFunction } from 'express'
 import BaseController from './BaseController'
-import UserService from '../services/UserService';
+import ProductService from '../services/ProductService';
 
-export default class UserController extends BaseController {
+export default class ProductController extends BaseController {
 
-    service: UserService
+    service: ProductService
 
     constructor() {
-        super('/users')
-        this.service = new UserService()
+        super('/products')
+        this.service = new ProductService()
         this.router.get('/', (...args) => this.getAll(...args))
         this.router.get('/:id', (...args) => this.getOne(...args))
+        this.router.post('/', (...args) => this.add(...args))
         this.router.put('/:id', (...args) => this.edit(...args))
         this.router.delete('/:id', (...args) => this.remove(...args))
     }

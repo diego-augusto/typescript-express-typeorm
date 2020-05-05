@@ -4,16 +4,19 @@ import { getConnection, Connection } from "typeorm";
 import Setup from "../application/Setup";
 import { User } from "../entities/User";
 import { UserRepository } from "../repositories/UserRepository";
+import { StoreRepository } from "../repositories/StoreRepository";
+import { Store } from "../entities/Store";
 
 let app: Application
 let connection: Connection
-
 let userRepository : UserRepository
+let storeRepository : StoreRepository
 
 beforeEach(async () => {
     app = await Setup.setup()
     connection = getConnection(process.env.NODE_ENV)
     userRepository = connection.getCustomRepository(UserRepository)
+    storeRepository = connection.getCustomRepository(StoreRepository)
 })
 
 afterEach(async () => {
@@ -24,7 +27,7 @@ afterAll(async () => {
     await connection.close()
 })
 
-describe("users", () => {
+describe("store", () => {
     test("get all", async () => {
 
         const user = new User()
@@ -35,12 +38,24 @@ describe("users", () => {
 
         await userRepository.save(user)
 
-        const result = await request(app).get("/users");
+        const store = new Store()
+
+        store.name = "My first Store"
+        store.user = user
+
+        await storeRepository.save(store)
+
+        const result = await request(app).get("/stores");
         expect(result.status).toEqual(200);
         expect(result.body).toHaveLength(1);
 
         expect(result.body).toEqual(expect.arrayContaining([
-            expect.objectContaining({ email: user.email, name: user.name })
+            expect.objectContaining(
+                {
+                    name: store.name,
+                    publicId: store.publicId,
+                }
+            )
         ]));
     });
 
@@ -54,8 +69,20 @@ describe("users", () => {
 
         await userRepository.save(user)
 
-        const result = await request(app).get(`/users/${user.publicId}`);
+        const store = new Store()
+
+        store.name = "My first Store"
+        store.user = user
+
+        await storeRepository.save(store)
+
+        const result = await request(app).get(`/stores/${store.publicId}`);
         expect(result.status).toEqual(200);
-        expect(result.body).toEqual(expect.objectContaining({ email: user.email, name: user.name }));
+        expect(result.body).toEqual(expect.objectContaining(
+            {
+                publicId: store.publicId,
+                name: store.name,
+            }
+        ));
     })
 });
