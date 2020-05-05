@@ -8,13 +8,14 @@ import { StoreRepository } from "../repositories/StoreRepository";
 import { Store } from "../entities/Store";
 import { ProductRepository } from "../repositories/ProductRepository";
 import { Product } from "../entities/Product";
+import TokenUtils from "../utils/TokenUtils";
 
 let app: Application
 let connection: Connection
 
-let userRepository : UserRepository
-let storeRepository : StoreRepository
-let productRepository : ProductRepository
+let userRepository: UserRepository
+let storeRepository: StoreRepository
+let productRepository: ProductRepository
 
 beforeEach(async () => {
     app = await Setup.setup()
@@ -58,7 +59,12 @@ describe("store", () => {
 
         await productRepository.save(product)
 
-        const result = await request(app).get("/products");
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get("/products")
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
         expect(result.status).toEqual(200);
         expect(result.body).toHaveLength(1);
 
@@ -92,7 +98,12 @@ describe("store", () => {
 
         await productRepository.save(product)
 
-        const result = await request(app).get(`/products/${product.publicId}`);
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get(`/products/${product.publicId}`)
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
         expect(result.status).toEqual(200);
         expect(result.body).toEqual(expect.objectContaining({ name: product.name, quantity: product.quantity }));
     })

@@ -2,18 +2,18 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import { Application } from 'express'
 import BaseController from '../controllers/BaseController'
-import BaseMiddleware from '../middlewares/BaseMiddleware'
 import ErrorMiddleware from '../middlewares/ErrorMiddleware'
+import AuthenticationMiddleware from '../middlewares/AuthenticationMiddleware'
 import AuthController from '../controllers/AuthController'
 
 export default class App {
 
     public app: Application
 
-    constructor(private controllers: BaseController[], private miidlewares?: BaseMiddleware[]) {
+    constructor(private controllers: BaseController[]) {
         this.app = express()
         this.setupApp()
-        this.setupAuth()
+        this.setupAuthentication()
         this.setupControllers()
         this.setupErrorMiddleware()
     }
@@ -23,11 +23,13 @@ export default class App {
         this.app.use(bodyParser.json())
     }
 
-    setupAuth() {
+    setupAuthentication() {
         const authController = new AuthController()
         this.app.post('/signin', authController.signin)
         this.app.post('/signup', authController.signup)
+        this.app.use(AuthenticationMiddleware)
     }
+
 
     setupControllers() {
         this.controllers.forEach(element => {
@@ -35,15 +37,7 @@ export default class App {
         });
     }
 
-    setupMiddlewares() {
-        if(this.miidlewares){
-            this.miidlewares.forEach(element => {
-                this.app.use(element.func)
-            });
-        }
-    }
-
     setupErrorMiddleware() {
-        this.app.use(new ErrorMiddleware().func)
+        this.app.use(ErrorMiddleware)
     }
 }

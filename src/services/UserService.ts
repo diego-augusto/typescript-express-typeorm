@@ -4,9 +4,8 @@ import BaseService from "./BaseService";
 import { User } from "../entities/User";
 import SystemException from "../exceptions/SystemException";
 import Messages from "../exceptions/Messages";
-import { sign } from "jsonwebtoken";
 import { compare } from "bcryptjs";
-import TokenType from "../utils/TokenType";
+import TokenUtils from "../utils/TokenUtils";
 
 export default class UserService implements BaseService<UserRepository> {
 
@@ -45,7 +44,7 @@ export default class UserService implements BaseService<UserRepository> {
 
     async signup(user: User) {
         const newUser = await this.repository.save(user)
-        const token = this.generateToken(newUser)
+        const token = TokenUtils.generateToken(newUser)
         return {
             id: newUser.publicId,
             token: token
@@ -65,21 +64,8 @@ export default class UserService implements BaseService<UserRepository> {
             throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
         }
 
-        const token = this.generateToken(selectedUser)
+        const token = TokenUtils.generateToken(selectedUser)
 
         return token
-    }
-
-    private generateToken(user: User) {
-
-        const payload: TokenType = {
-            id: user.publicId,
-            name: user.name,
-            email: user.email
-        }
-
-        const token = sign(payload, process.env.SECRET as string);
-
-        return { token }
     }
 }

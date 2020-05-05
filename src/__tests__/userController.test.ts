@@ -4,11 +4,12 @@ import { getConnection, Connection } from "typeorm";
 import Setup from "../application/Setup";
 import { User } from "../entities/User";
 import { UserRepository } from "../repositories/UserRepository";
+import TokenUtils from "../utils/TokenUtils";
 
 let app: Application
 let connection: Connection
 
-let userRepository : UserRepository
+let userRepository: UserRepository
 
 beforeEach(async () => {
     app = await Setup.setup()
@@ -35,7 +36,13 @@ describe("users", () => {
 
         await userRepository.save(user)
 
-        const result = await request(app).get("/users");
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app)
+            .get("/users")
+            .set("Accept", "application/json")
+            .set("Authorization", token)
+
         expect(result.status).toEqual(200);
         expect(result.body).toHaveLength(1);
 
@@ -54,8 +61,40 @@ describe("users", () => {
 
         await userRepository.save(user)
 
-        const result = await request(app).get(`/users/${user.publicId}`);
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get(`/users/${user.publicId}`)
+            .set("Accept", "application/json")
+            .set("Authorization", token)
+
         expect(result.status).toEqual(200);
         expect(result.body).toEqual(expect.objectContaining({ email: user.email, name: user.name }));
+    })
+
+    test("get not found", async () => {
+
+        const user = new User()
+
+        user.email = "user@email.com"
+        user.name = "New User"
+        user.password = "User@1234"
+
+        await userRepository.save(user)
+
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get(`/users/-1`)
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
+        expect(result.status).toEqual(404);
+    })
+
+    test("without token", async () => {
+
+        const result = await request(app).get(`/users/-1`)
+            .set("Accept", "application/json")
+
+        expect(result.status).toEqual(401);
     })
 });

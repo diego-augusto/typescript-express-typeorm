@@ -6,11 +6,12 @@ import { User } from "../entities/User";
 import { UserRepository } from "../repositories/UserRepository";
 import { StoreRepository } from "../repositories/StoreRepository";
 import { Store } from "../entities/Store";
+import TokenUtils from "../utils/TokenUtils";
 
 let app: Application
 let connection: Connection
-let userRepository : UserRepository
-let storeRepository : StoreRepository
+let userRepository: UserRepository
+let storeRepository: StoreRepository
 
 beforeEach(async () => {
     app = await Setup.setup()
@@ -45,7 +46,12 @@ describe("store", () => {
 
         await storeRepository.save(store)
 
-        const result = await request(app).get("/stores");
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get("/stores")
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
         expect(result.status).toEqual(200);
         expect(result.body).toHaveLength(1);
 
@@ -76,7 +82,12 @@ describe("store", () => {
 
         await storeRepository.save(store)
 
-        const result = await request(app).get(`/stores/${store.publicId}`);
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get(`/stores/${store.publicId}`)
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
         expect(result.status).toEqual(200);
         expect(result.body).toEqual(expect.objectContaining(
             {

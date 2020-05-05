@@ -6,7 +6,11 @@ const Messages = {
     WRONG_SIGNIN: {
         message: "Wrong email or password",
         code: 400
-    }
+    },
+    UNAUTHORIZED : {
+        message: "Wrong email or password",
+        code: 401
+    }  
 }
 
 export default Messages
