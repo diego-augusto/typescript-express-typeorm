@@ -96,4 +96,54 @@ describe("store", () => {
             }
         ));
     })
+
+    test("not found", async () => {
+
+        const user = new User()
+
+        user.email = "user@email.com"
+        user.name = "New User"
+        user.password = "User@1234"
+
+        await userRepository.save(user)
+
+        const store = new Store()
+
+        store.name = "My first Store"
+        store.user = user
+
+        await storeRepository.save(store)
+
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get(`/stores/-1`)
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
+        expect(result.status).toEqual(404);
+    })
+
+    
+    test("without token", async () => {
+
+        const user = new User()
+
+        user.email = "user@email.com"
+        user.name = "New User"
+        user.password = "User@1234"
+
+        await userRepository.save(user)
+
+        const store = new Store()
+
+        store.name = "My first Store"
+        store.user = user
+
+        await storeRepository.save(store)
+
+        const result = await request(app).get(`/stores/${store.publicId}`)
+            .set("Accept", "application/json")
+
+        expect(result.status).toEqual(401);
+    })
 });

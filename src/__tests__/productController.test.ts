@@ -107,4 +107,71 @@ describe("store", () => {
         expect(result.status).toEqual(200);
         expect(result.body).toEqual(expect.objectContaining({ name: product.name, quantity: product.quantity }));
     })
+
+
+    test("not found", async () => {
+
+        const user = new User()
+
+        user.email = "user@email.com"
+        user.name = "New User"
+        user.password = "User@1234"
+
+        await userRepository.save(user)
+
+        const store = new Store()
+
+        store.name = "My first Store"
+        store.user = user
+
+        await storeRepository.save(store)
+
+        const product = new Product()
+
+        product.name = "My first Store"
+        product.quantity = 10
+        product.store = store
+
+        await productRepository.save(product)
+
+        const token = TokenUtils.generateToken(user).token
+
+        const result = await request(app).get(`/products/-1`)
+            .set("Accept", "application/json")
+            .set("Authorization", token);
+
+        expect(result.status).toEqual(404);
+    })
+
+    test("without token", async () => {
+
+        const user = new User()
+
+        user.email = "user@email.com"
+        user.name = "New User"
+        user.password = "User@1234"
+
+        await userRepository.save(user)
+
+        const store = new Store()
+
+        store.name = "My first Store"
+        store.user = user
+
+        await storeRepository.save(store)
+
+        const product = new Product()
+
+        product.name = "My first Store"
+        product.quantity = 10
+        product.store = store
+
+        await productRepository.save(product)
+
+        const result = await request(app).get(`/products/${product.publicId}`)
+            .set("Accept", "application/json")
+
+        expect(result.status).toEqual(401);
+    })
+
 });

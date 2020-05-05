@@ -92,7 +92,15 @@ describe("users", () => {
 
     test("without token", async () => {
 
-        const result = await request(app).get(`/users/-1`)
+        const user = new User()
+
+        user.email = "user@email.com"
+        user.name = "New User"
+        user.password = "User@1234"
+
+        await userRepository.save(user)
+
+        const result = await request(app).get(`/users/${user.publicId}`)
             .set("Accept", "application/json")
 
         expect(result.status).toEqual(401);
