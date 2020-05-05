@@ -5,11 +5,10 @@ import SystemException from "../exceptions/SystemException";
 import Messages from "../exceptions/Messages";
 import { ProductRepository } from "../repositories/ProductRepository";
 
-export default class ProductService implements BaseService<ProductRepository> {
-
-    repository: ProductRepository
+export default class ProductService extends BaseService<ProductRepository> {
 
     constructor() {
+        super();
         this.repository = getCustomRepository(ProductRepository, process.env.NODE_ENV)
     }
 

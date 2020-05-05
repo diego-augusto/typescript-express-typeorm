@@ -7,11 +7,10 @@ import Messages from "../exceptions/Messages";
 import { compare } from "bcryptjs";
 import TokenUtils from "../utils/TokenUtils";
 
-export default class UserService implements BaseService<UserRepository> {
-
-    repository: UserRepository
+export default class UserService extends BaseService<UserRepository> {
 
     constructor() {
+        super()
         this.repository = getCustomRepository(UserRepository, process.env.NODE_ENV)
     }
 

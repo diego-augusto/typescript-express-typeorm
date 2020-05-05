@@ -1,5 +1,3 @@
-import { Repository } from "typeorm";
-
-export default interface BaseService<T> {
+export default abstract class BaseService<T> {
     repository: T
 }

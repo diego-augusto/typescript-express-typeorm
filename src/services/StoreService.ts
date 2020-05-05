@@ -5,11 +5,10 @@ import SystemException from "../exceptions/SystemException";
 import Messages from "../exceptions/Messages";
 import { StoreRepository } from "../repositories/StoreRepository";
 
-export default class StoreService implements BaseService<StoreRepository> {
-
-    repository: StoreRepository
+export default class StoreService extends BaseService<StoreRepository> {
 
     constructor() {
+        super()
         this.repository = getCustomRepository(StoreRepository, process.env.NODE_ENV)
     }
 
