@@ -1,6 +1,6 @@
-import { sign } from "jsonwebtoken";
-import { User } from "../entities/User";
-import TokenType from "./TokenType";
+import { sign } from 'jsonwebtoken'
+import { User } from '../entities/User'
+import TokenType from './TokenType'
 
 export default abstract class TokenUtils {
 
@@ -12,7 +12,7 @@ export default abstract class TokenUtils {
             email: user.email
         }
 
-        const token = sign(payload, process.env.SECRET as string);
+        const token = sign(payload, process.env.SECRET as string)
 
         return { token }
     }

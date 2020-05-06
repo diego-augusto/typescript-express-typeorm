@@ -1,11 +1,11 @@
-import { compare } from "bcryptjs";
-import { getCustomRepository } from "typeorm";
-import { User } from "../entities/User";
-import Messages from "../exceptions/Messages";
-import SystemException from "../exceptions/SystemException";
-import { UserRepository } from "../repositories/UserRepository";
-import TokenUtils from "../utils/TokenUtils";
-import BaseService from "./BaseService";
+import { compare } from 'bcryptjs'
+import { getCustomRepository } from 'typeorm'
+import { User } from '../entities/User'
+import Messages from '../exceptions/Messages'
+import SystemException from '../exceptions/SystemException'
+import { UserRepository } from '../repositories/UserRepository'
+import TokenUtils from '../utils/TokenUtils'
+import BaseService from './BaseService'
 
 export default class UserService extends BaseService<UserRepository> {
 

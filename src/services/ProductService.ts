@@ -1,14 +1,14 @@
-import { getCustomRepository } from "typeorm";
-import { User } from "../entities/User";
-import Messages from "../exceptions/Messages";
-import SystemException from "../exceptions/SystemException";
-import { ProductRepository } from "../repositories/ProductRepository";
-import BaseService from "./BaseService";
+import { getCustomRepository } from 'typeorm'
+import { User } from '../entities/User'
+import Messages from '../exceptions/Messages'
+import SystemException from '../exceptions/SystemException'
+import { ProductRepository } from '../repositories/ProductRepository'
+import BaseService from './BaseService'
 
 export default class ProductService extends BaseService<ProductRepository> {
 
     constructor() {
-        super();
+        super()
         this.repository = getCustomRepository(ProductRepository, process.env.NODE_ENV)
     }
 

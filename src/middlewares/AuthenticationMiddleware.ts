@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
-import Messages from "../exceptions/Messages";
-import SystemException from "../exceptions/SystemException";
+import Messages from '../exceptions/Messages'
+import SystemException from '../exceptions/SystemException'
 import UserService from '../services/UserService'
 import TokenType from '../utils/TokenType'
 
@@ -29,7 +29,7 @@ export default async (request: Request, response: Response, next: NextFunction) 
             throw new SystemException(Messages.UNAUTHORIZED.message, Messages.UNAUTHORIZED.code)
         }
 
-        request.user = user;
+        request.user = user
 
         next()
 

@@ -1,5 +1,5 @@
-import "reflect-metadata";
-import { Connection, createConnection, getConnection } from "typeorm";
+import 'reflect-metadata'
+import { Connection, createConnection, getConnection } from 'typeorm'
 
 export default class Database {
 
@@ -8,7 +8,7 @@ export default class Database {
     static async getConnection() {
 
         if (this.connection === null || !this.connection.isConnected) {
-            const connectionName = process.env.NODE_ENV || "development"
+            const connectionName = process.env.NODE_ENV || 'development'
             this.connection = await createConnection(connectionName)
         }
 

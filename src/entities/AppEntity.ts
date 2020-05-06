@@ -4,23 +4,23 @@ import {
     Generated,
     PrimaryGeneratedColumn,
     UpdateDateColumn
-} from "typeorm";
+} from 'typeorm'
 
 export default abstract class AppEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number
 
-    @Column({ type: "uuid" })
-    @Generated("uuid")
-    publicId: string;
+    @Column({ type: 'uuid' })
+    @Generated('uuid')
+    publicId: string
 
     @CreateDateColumn()
-    createdAt: Date;
+    createdAt: Date
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updatedAt: Date
 
     @DeleteDateColumn()
-    deletedAt: Date;
+    deletedAt: Date
 }

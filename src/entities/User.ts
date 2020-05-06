@@ -1,26 +1,26 @@
-import { genSalt, hash } from "bcryptjs";
-import { BeforeInsert, Column, Entity, OneToMany } from "typeorm";
-import AppEntity from "./AppEntity";
-import { Store } from "./Store";
+import { genSalt, hash } from 'bcryptjs'
+import { BeforeInsert, Column, Entity, OneToMany } from 'typeorm'
+import AppEntity from './AppEntity'
+import { Store } from './Store'
 
 @Entity()
 export class User extends AppEntity {
 
     @Column()
-    name: string;
+    name: string
 
     @Column({ unique: true })
-    email: string;
+    email: string
 
     @Column()
-    password: string;
+    password: string
 
     @OneToMany(type => Store, store => store.user)
-    stores: Store[];
+    stores: Store[]
 
     @BeforeInsert()
     async hashPassword() {
-        const salt = await genSalt(10);
+        const salt = await genSalt(10)
         this.password = await hash(this.password, salt)
     }
 }

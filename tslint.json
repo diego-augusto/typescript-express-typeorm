@@ -26,7 +26,11 @@
             }
         ],
         "cyclomatic-complexity": [true, 5],
-        "prefer-const": [true, {"destructuring": "all"}]
+        "prefer-const": [true, {"destructuring": "all"}],
+        "no-irregular-whitespace": true,
+        "no-consecutive-blank-lines": true,
+        "quotemark": [true, "single"],
+        "semicolon": [true, "never"]
     },
     "rulesDirectory": []
 }

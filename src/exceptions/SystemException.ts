@@ -7,6 +7,6 @@ export default class SystemException extends Error {
         super(message)
         this.message = message
         this.code = code
-        Object.setPrototypeOf(this, new.target.prototype);
+        Object.setPrototypeOf(this, new.target.prototype)
     }
 }

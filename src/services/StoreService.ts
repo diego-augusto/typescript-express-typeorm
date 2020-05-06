@@ -1,9 +1,9 @@
-import { getCustomRepository } from "typeorm";
-import { User } from "../entities/User";
-import Messages from "../exceptions/Messages";
-import SystemException from "../exceptions/SystemException";
-import { StoreRepository } from "../repositories/StoreRepository";
-import BaseService from "./BaseService";
+import { getCustomRepository } from 'typeorm'
+import { User } from '../entities/User'
+import Messages from '../exceptions/Messages'
+import SystemException from '../exceptions/SystemException'
+import { StoreRepository } from '../repositories/StoreRepository'
+import BaseService from './BaseService'
 
 export default class StoreService extends BaseService<StoreRepository> {
 

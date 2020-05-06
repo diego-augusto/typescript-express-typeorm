@@ -30,11 +30,10 @@ export default class App {
         this.app.use(AuthenticationMiddleware)
     }
 
-
     setupControllers() {
         this.controllers.forEach(element => {
             this.app.use(element.path, element.router)
-        });
+        })
     }
 
     setupErrorMiddleware() {
