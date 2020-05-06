@@ -6,12 +6,27 @@
     "jsRules": {},
     "rules": {
         "max-line-length": {
-            "options": [120]
+            "options": [
+                120
+            ]
         },
         "only-arrow-functions": true,
         "no-any": true,
-        "array-type": [true, "array"],
-        "ordered-imports": true
+        "array-type": [
+            true,
+            "array"
+        ],
+        "ordered-imports": true,
+        "space-before-function-paren": [
+            true,
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        "cyclomatic-complexity": [true, 5],
+        "prefer-const": [true, {"destructuring": "all"}]
     },
     "rulesDirectory": []
 }
