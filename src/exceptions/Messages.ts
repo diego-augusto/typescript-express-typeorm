@@ -10,7 +10,7 @@ const Messages = {
     UNAUTHORIZED : {
         message: "Wrong email or password",
         code: 401
-    }  
+    }
 }
 
 export default Messages

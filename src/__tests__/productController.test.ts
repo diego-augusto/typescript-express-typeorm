@@ -1,13 +1,13 @@
-import request from "supertest";
 import { Application } from "express";
-import { getConnection, Connection } from "typeorm";
+import request from "supertest";
+import { Connection, getConnection } from "typeorm";
 import Setup from "../application/Setup";
-import { User } from "../entities/User";
-import { UserRepository } from "../repositories/UserRepository";
-import { StoreRepository } from "../repositories/StoreRepository";
-import { Store } from "../entities/Store";
-import { ProductRepository } from "../repositories/ProductRepository";
 import { Product } from "../entities/Product";
+import { Store } from "../entities/Store";
+import { User } from "../entities/User";
+import { ProductRepository } from "../repositories/ProductRepository";
+import { StoreRepository } from "../repositories/StoreRepository";
+import { UserRepository } from "../repositories/UserRepository";
 import TokenUtils from "../utils/TokenUtils";
 
 let app: Application

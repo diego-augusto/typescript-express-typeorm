@@ -1,10 +1,10 @@
-import express from 'express'
 import bodyParser from 'body-parser'
+import express from 'express'
 import { Application } from 'express'
-import BaseController from '../controllers/BaseController'
-import ErrorMiddleware from '../middlewares/ErrorMiddleware'
-import AuthenticationMiddleware from '../middlewares/AuthenticationMiddleware'
 import AuthController from '../controllers/AuthController'
+import BaseController from '../controllers/BaseController'
+import AuthenticationMiddleware from '../middlewares/AuthenticationMiddleware'
+import ErrorMiddleware from '../middlewares/ErrorMiddleware'
 
 export default class App {
 

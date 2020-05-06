@@ -1,5 +1,5 @@
-import { Entity, Column, BeforeInsert, OneToMany } from "typeorm";
-import { hash, genSalt } from "bcryptjs";
+import { genSalt, hash } from "bcryptjs";
+import { BeforeInsert, Column, Entity, OneToMany } from "typeorm";
 import AppEntity from "./AppEntity";
 import { Store } from "./Store";
 

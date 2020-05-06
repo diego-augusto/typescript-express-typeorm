@@ -1,6 +1,6 @@
+import { sign } from "jsonwebtoken";
 import { User } from "../entities/User";
 import TokenType from "./TokenType";
-import { sign } from "jsonwebtoken";
 
 export default abstract class TokenUtils {
 

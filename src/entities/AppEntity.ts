@@ -1,4 +1,10 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, BeforeInsert, BeforeUpdate, BeforeRemove, Generated } from "typeorm";
+import {
+    Column, CreateDateColumn,
+    DeleteDateColumn,
+    Generated,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 
 export default abstract class AppEntity {
 

@@ -1,5 +1,5 @@
 export default interface TokenType {
     id : string,
-    name : string, 
+    name : string,
     email : string
-} 
+}

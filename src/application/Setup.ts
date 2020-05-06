@@ -1,9 +1,9 @@
-import App from './App'
-import UserController from "../controllers/UserController";
 import BaseController from "../controllers/BaseController";
-import Database from './Database';
-import StoreController from '../controllers/StoreController';
 import ProductController from '../controllers/ProductController';
+import StoreController from '../controllers/StoreController';
+import UserController from "../controllers/UserController";
+import App from './App'
+import Database from './Database';
 
 export default class Setup {
 

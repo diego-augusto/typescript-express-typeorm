@@ -1,6 +1,6 @@
-import request from "supertest";
 import { Application } from "express";
-import { getConnection, Connection } from "typeorm";
+import request from "supertest";
+import { Connection, getConnection } from "typeorm";
 import Setup from "../application/Setup";
 import { User } from "../entities/User";
 import { UserRepository } from "../repositories/UserRepository";

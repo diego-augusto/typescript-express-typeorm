@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express'
-import BaseController from './BaseController'
+import { NextFunction, Request, Response } from 'express'
 import UserService from '../services/UserService';
+import BaseController from './BaseController'
 
 export default class UserController extends BaseController {
 

@@ -1,1 +1,1 @@
-process.env.SECRET = "supersecret"
+process.env.SECRET = 'supersecret';

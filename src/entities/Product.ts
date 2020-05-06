@@ -1,6 +1,6 @@
-import { Entity, Column, ManyToOne } from "typeorm";
-import { Store } from './Store'
+import { Column, Entity, ManyToOne } from "typeorm";
 import AppEntity from "./AppEntity";
+import { Store } from './Store'
 
 @Entity()
 export class Product extends AppEntity {
