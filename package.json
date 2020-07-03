@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "pretest": "jest --clearCache",
     "test": "jest",
     "prestart": "npm run build",
     "start": "node dest/index.js",

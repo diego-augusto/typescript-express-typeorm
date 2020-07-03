@@ -1,14 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
-import StoreService from '../services/StoreService'
+import * as StoreService from '../services/StoreService'
 import BaseController from './BaseController'
 
 export default class StoreController extends BaseController {
 
-    service: StoreService
-
     constructor() {
         super('/stores')
-        this.service = new StoreService()
         this.router.get('/', (...args) => this.getAll(...args))
         this.router.get('/:id', (...args) => this.getOne(...args))
         this.router.post('/', (...args) => this.add(...args))
@@ -18,7 +15,7 @@ export default class StoreController extends BaseController {
 
     async getAll(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.findAll()
+            const users = await StoreService.findAll()
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -27,7 +24,7 @@ export default class StoreController extends BaseController {
 
     async getOne(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.findOne(request.params.id)
+            const users = await StoreService.findOne(request.params.id)
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -36,7 +33,7 @@ export default class StoreController extends BaseController {
 
     async add(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.add(request.body)
+            const users = await StoreService.add(request.body)
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -45,7 +42,7 @@ export default class StoreController extends BaseController {
 
     async edit(request: Request, response: Response, next: NextFunction) {
         try {
-            this.service.edit(request.params.id, request.body)
+            StoreService.edit(request.params.id, request.body)
             response.status(204).send()
         } catch (error) {
             next(error)
@@ -54,7 +51,7 @@ export default class StoreController extends BaseController {
 
     async remove(request: Request, response: Response, next: NextFunction) {
         try {
-            await this.service.remove(request.params.id)
+            await StoreService.remove(request.params.id)
             response.status(204).send()
         } catch (error) {
             next(error)

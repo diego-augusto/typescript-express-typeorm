@@ -5,66 +5,70 @@ import Messages from '../exceptions/Messages'
 import SystemException from '../exceptions/SystemException'
 import { UserRepository } from '../repositories/UserRepository'
 import TokenUtils from '../utils/TokenUtils'
-import BaseService from './BaseService'
 
-export default class UserService extends BaseService<UserRepository> {
+const findAll = async () =>  {
+    return await getCustomRepository(UserRepository, process.env.NODE_ENV)
+    .find()
+}
 
-    constructor() {
-        super()
-        this.repository = getCustomRepository(UserRepository, process.env.NODE_ENV)
+const findOne = async (id: string) =>  {
+
+    const user = await getCustomRepository(UserRepository, process.env.NODE_ENV)
+    .findOne({ where: { publicId: id } })
+
+    if (user) {
+        return user
     }
 
-    async findAll() {
-        return await this.repository.find()
+    throw new SystemException(Messages.NOT_FOUND.message, Messages.NOT_FOUND.code)
+}
+
+const add = async (user: User) => {
+    return await getCustomRepository(UserRepository, process.env.NODE_ENV).save(user)
+}
+
+const edit =  async (id: string, user: User) =>  {
+    return await getCustomRepository(UserRepository, process.env.NODE_ENV).update(id, user)
+}
+
+const remove = async (id: string) =>  {
+    return await getCustomRepository(UserRepository, process.env.NODE_ENV).delete(id)
+}
+
+const signup = async (user: User) => {
+    const newUser = await getCustomRepository(UserRepository, process.env.NODE_ENV).save(user)
+    const token = TokenUtils.generateToken(newUser)
+    return {
+        id: newUser.publicId,
+        token
+    }
+}
+
+const sign = async (email: string, password: string) =>  {
+    const selectedUser = await getCustomRepository(UserRepository, process.env.NODE_ENV)
+    .findOne({ where: { email } })
+
+    if (!selectedUser) {
+        throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
     }
 
-    async findOne(id: string) {
+    const isPasswordValid = await compare(password, selectedUser.password)
 
-        const user = await this.repository.findOne({ where: { publicId: id } })
-
-        if (user) {
-            return user
-        }
-
-        throw new SystemException(Messages.NOT_FOUND.message, Messages.NOT_FOUND.code)
+    if (!isPasswordValid) {
+        throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
     }
 
-    async add(user: User) {
-        return await this.repository.save(user)
-    }
+    const token = TokenUtils.generateToken(selectedUser)
 
-    async edit(id: string, user: User) {
-        return await this.repository.update(id, user)
-    }
+    return token
+}
 
-    async remove(id: string) {
-        return await this.repository.delete(id)
-    }
-
-    async signup(user: User) {
-        const newUser = await this.repository.save(user)
-        const token = TokenUtils.generateToken(newUser)
-        return {
-            id: newUser.publicId,
-            token
-        }
-    }
-
-    async sign(email: string, password: string) {
-        const selectedUser = await this.repository.findOne({ where: { email } })
-
-        if (!selectedUser) {
-            throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
-        }
-
-        const isPasswordValid = await compare(password, selectedUser.password)
-
-        if (!isPasswordValid) {
-            throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
-        }
-
-        const token = TokenUtils.generateToken(selectedUser)
-
-        return token
-    }
+export {
+    findAll,
+    findOne,
+    add,
+    edit,
+    signup,
+    sign,
+    remove
 }

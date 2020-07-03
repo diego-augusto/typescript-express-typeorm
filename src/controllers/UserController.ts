@@ -1,14 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
-import UserService from '../services/UserService'
+import * as UserService from '../services/UserService'
 import BaseController from './BaseController'
 
 export default class UserController extends BaseController {
 
-    service: UserService
-
     constructor() {
         super('/users')
-        this.service = new UserService()
         this.router.get('/', (...args) => this.getAll(...args))
         this.router.get('/:id', (...args) => this.getOne(...args))
         this.router.put('/:id', (...args) => this.edit(...args))
@@ -17,7 +14,8 @@ export default class UserController extends BaseController {
 
     async getAll(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.findAll()
+
+            const users = await UserService.findAll()
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -26,7 +24,7 @@ export default class UserController extends BaseController {
 
     async getOne(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.findOne(request.params.id)
+            const users = await UserService.findOne(request.params.id)
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -35,7 +33,7 @@ export default class UserController extends BaseController {
 
     async add(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.add(request.body)
+            const users = await UserService.add(request.body)
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -44,7 +42,7 @@ export default class UserController extends BaseController {
 
     async edit(request: Request, response: Response, next: NextFunction) {
         try {
-            this.service.edit(request.params.id, request.body)
+            await UserService.edit(request.params.id, request.body)
             response.status(204).send()
         } catch (error) {
             next(error)
@@ -53,7 +51,7 @@ export default class UserController extends BaseController {
 
     async remove(request: Request, response: Response, next: NextFunction) {
         try {
-            await this.service.remove(request.params.id)
+            await UserService.remove(request.params.id)
             response.status(204).send()
         } catch (error) {
             next(error)

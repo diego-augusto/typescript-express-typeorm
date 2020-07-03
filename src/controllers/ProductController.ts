@@ -1,14 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
-import ProductService from '../services/ProductService'
+import * as ProductService from '../services/ProductService'
 import BaseController from './BaseController'
 
 export default class ProductController extends BaseController {
 
-    service: ProductService
-
     constructor() {
         super('/products')
-        this.service = new ProductService()
+
         this.router.get('/', (...args) => this.getAll(...args))
         this.router.get('/:id', (...args) => this.getOne(...args))
         this.router.post('/', (...args) => this.add(...args))
@@ -18,7 +16,7 @@ export default class ProductController extends BaseController {
 
     async getAll(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.findAll()
+            const users = await ProductService.findAll()
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -27,7 +25,7 @@ export default class ProductController extends BaseController {
 
     async getOne(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.findOne(request.params.id)
+            const users = await ProductService.findOne(request.params.id)
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -36,7 +34,7 @@ export default class ProductController extends BaseController {
 
     async add(request: Request, response: Response, next: NextFunction) {
         try {
-            const users = await this.service.add(request.body)
+            const users = await ProductService.add(request.body)
             response.status(200).json(users)
         } catch (error) {
             next(error)
@@ -45,7 +43,7 @@ export default class ProductController extends BaseController {
 
     async edit(request: Request, response: Response, next: NextFunction) {
         try {
-            this.service.edit(request.params.id, request.body)
+            ProductService.edit(request.params.id, request.body)
             response.status(204).send()
         } catch (error) {
             next(error)
@@ -54,7 +52,7 @@ export default class ProductController extends BaseController {
 
     async remove(request: Request, response: Response, next: NextFunction) {
         try {
-            await this.service.remove(request.params.id)
+            await ProductService.remove(request.params.id)
             response.status(204).send()
         } catch (error) {
             next(error)
