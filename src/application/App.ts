@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import { Application } from 'express'
-import BaseController from '../controllers/BaseController'
 import Router from '../routers'
 
 export default class App {
