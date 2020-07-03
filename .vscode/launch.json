@@ -7,23 +7,42 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "args": [
-                "--inspect-brk",
-                "${workspaceRoot}/node_modules/.bin/jest",
+                // "--inspect-brk",
+                // "${workspaceRoot}/node_modules/.bin/jest",
+                // "--runInBand",
+                // "--config",
+                // "${workspaceRoot}/jest.config.js"
+                "${fileBasenameNoExtension}",  
+                "--detectOpenHandles",
+                "--forceExit",
                 "--runInBand",
-                "--config",
-                "${workspaceRoot}/jest.config.js"
+                " --clearCache",
+                "--testTimeout=60000"
             ],
             "windows": {
                 "args": [
-                    "--inspect-brk",
+                    // "--inspect-brk",
                     "${workspaceRoot}/node_modules/jest/bin/jest.js",
+                    // "--runInBand",
+                    // "--config",
+                    // "${workspaceRoot}/jest.config.js"
+                    "${fileBasenameNoExtension}",  
+                    "--detectOpenHandles",
+                    "--forceExit",
                     "--runInBand",
-                    "--config",
-                    "${workspaceRoot}/jest.config.js"
+                    " --clearCache",
+                    "--testTimeout=60000"
+
                 ],
             },
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/lib/**/*.js",
+                "<node_internals>/**/*.js"
+            ]
         },
         {
             "name": "Debug",
