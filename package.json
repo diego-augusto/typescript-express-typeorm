@@ -8,8 +8,7 @@
     "pretest": "jest --clearCache",
     "test": "jest",
     "prestart": "npm run build",
-    "start": "node dest/index.js",
-    "start:dev": "ts-node -r dotenv/config src/index.ts",
+    "start": "node -r dotenv/config dest/index.js",
     "tslint:fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'"
   },
   "author": "",

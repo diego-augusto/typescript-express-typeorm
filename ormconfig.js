@@ -8,13 +8,13 @@ module.exports = [
 		synchronize: true,
 		logging: false,
 		entities: [
-			path.resolve(__dirname, 'src/entities/*.ts'),
+			path.resolve(__dirname, 'src/entities/*.js'),
 		],
 		migrations: [
-			path.resolve(__dirname, 'src/migration/*.ts'),
+			path.resolve(__dirname, 'src/migration/*.js'),
 		],
 		subscribers: [
-			path.resolve(__dirname, 'src/subscriber/*.ts'),
+			path.resolve(__dirname, 'src/subscriber/*.js'),
 		],
 		cli: {
 			entitiesDir: 'src/entities',

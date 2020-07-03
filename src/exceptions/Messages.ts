@@ -8,7 +8,7 @@ const Messages = {
         code: 400
     },
     UNAUTHORIZED : {
-        message: 'Wrong email or password',
+        message: 'Unauthorized to access this resource',
         code: 401
     }
 }

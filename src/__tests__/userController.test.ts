@@ -71,7 +71,7 @@ describe('users', () => {
         expect(result.body).toEqual(expect.objectContaining({ email: user.email, name: user.name }))
     })
 
-    test.only('get not found', async () => {
+    test('get not found', async () => {
 
         const user = new User()
 

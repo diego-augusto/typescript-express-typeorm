@@ -10,7 +10,7 @@ const signin = async  (request: Request, response: Response, next: NextFunction)
     }
 }
 
-const  signup =  async (request: Request, response: Response, next: NextFunction) =>  {
+const signup =  async (request: Request, response: Response, next: NextFunction) =>  {
     try {
         const token = await UserService.signup(request.body)
         response.status(200).json(token)
