@@ -2,24 +2,24 @@ const path = require('path');
 
 module.exports = [
 	{
-		name: 'development',
+		name: 'default',
 		type: 'sqlite',
-		database: 'database.dev.sqlite',
+		database: 'database.development.sqlite',
 		synchronize: true,
 		logging: false,
 		entities: [
 			path.resolve(__dirname, 'src/entities/*.js'),
 		],
 		migrations: [
-			path.resolve(__dirname, 'src/migration/*.js'),
+			path.resolve(__dirname, 'src/migrations/*.js'),
 		],
 		subscribers: [
 			path.resolve(__dirname, 'src/subscriber/*.js'),
 		],
 		cli: {
 			entitiesDir: 'src/entities',
-			migrationsDir: 'src/migration',
-			subscribersDir: 'src/subscriber',
+			migrationsDir: 'src/migrations',
+			subscribersDir: 'src/subscribers',
 		},
 	},
 	{
@@ -32,15 +32,15 @@ module.exports = [
 			path.resolve(__dirname, 'src/entities/*.ts'),
 		],
 		migrations: [
-			path.resolve(__dirname, 'src/migration/*.ts'),
+			path.resolve(__dirname, 'src/migrations/*.ts'),
 		],
 		subscribers: [
 			path.resolve(__dirname, 'src/subscriber/*.ts'),
 		],
 		cli: {
 			entitiesDir: 'src/entities',
-			migrationsDir: 'src/migration',
-			subscribersDir: 'src/subscriber',
+			migrationsDir: 'src/migrations',
+			subscribersDir: 'src/subscribers',
 		},
 	},
 ];
