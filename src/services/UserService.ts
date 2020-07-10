@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
-import { User } from '../entities/User'
+import { User } from '../entities'
 import { NotFoundException } from '../exceptions'
 import { UserRepository } from '../repositories'
 import TokenUtils from '../utils/TokenUtils'
