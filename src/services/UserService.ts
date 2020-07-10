@@ -2,7 +2,7 @@ import { compare } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
 import { User } from '../entities/User'
 import { NotFoundException } from '../exceptions'
-import { UserRepository } from '../repositories/UserRepository'
+import { UserRepository } from '../repositories'
 import TokenUtils from '../utils/TokenUtils'
 
 const findAll = async () =>  {

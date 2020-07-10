@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm'
 import { User } from '../entities/User'
 import { NotFoundException } from '../exceptions'
-import { ProductRepository } from '../repositories/ProductRepository'
+import { ProductRepository } from '../repositories'
 
 const findAll = async () => {
     return await getCustomRepository(ProductRepository, process.env.NODE_ENV).find()
