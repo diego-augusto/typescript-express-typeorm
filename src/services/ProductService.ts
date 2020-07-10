@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm'
-import { User } from '../entities/User'
+import { Product } from '../entities'
 import { NotFoundException } from '../exceptions'
 import { ProductRepository } from '../repositories'
 
@@ -9,22 +9,22 @@ const findAll = async () => {
 
 const findOne = async (id: string) => {
 
-    const user = await getCustomRepository(ProductRepository, process.env.NODE_ENV)
+    const product = await getCustomRepository(ProductRepository, process.env.NODE_ENV)
         .findOne({ where: { publicId: id } })
 
-    if (user) {
-        return user
+    if (product) {
+        return product
     }
 
     throw new NotFoundException('Product')
 }
 
-const add = async (user: User) => {
-    return await getCustomRepository(ProductRepository, process.env.NODE_ENV).save(user)
+const add = async (product: Product) => {
+    return await getCustomRepository(ProductRepository, process.env.NODE_ENV).save(product)
 }
 
-const edit = async (id: string, user: User) => {
-    return await getCustomRepository(ProductRepository, process.env.NODE_ENV).update(id, user)
+const edit = async (id: string, product: Product) => {
+    return await getCustomRepository(ProductRepository, process.env.NODE_ENV).update(id, product)
 }
 
 const remove = async (id: string) => {
