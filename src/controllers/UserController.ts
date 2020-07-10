@@ -19,15 +19,6 @@ const getOne = async (request: Request, response: Response, next: NextFunction) 
     }
 }
 
-const add = async (request: Request, response: Response, next: NextFunction) => {
-    try {
-        const users = await UserService.add(request.body)
-        response.status(200).json(users)
-    } catch (error) {
-        next(error)
-    }
-}
-
 const edit = async (request: Request, response: Response, next: NextFunction) => {
     try {
         await UserService.edit(request.params.id, request.body)
@@ -49,7 +40,6 @@ const remove = async (request: Request, response: Response, next: NextFunction) 
 export {
     getAll,
     getOne,
-    add,
     edit,
     remove
 }
