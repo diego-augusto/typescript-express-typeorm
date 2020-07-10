@@ -1,12 +1,11 @@
 export default class SystemException extends Error {
 
-    public message : string
     public code : number
 
-    constructor(message: string, code: number) {
+    constructor(message: string) {
         super(message)
+        this.name = 'SystemException'
         this.message = message
-        this.code = code
         Object.setPrototypeOf(this, new.target.prototype)
     }
 }

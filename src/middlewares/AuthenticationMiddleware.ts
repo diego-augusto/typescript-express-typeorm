@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
-import Messages from '../exceptions/Messages'
-import SystemException from '../exceptions/SystemException'
+import { InvalidParameterException, NotFoundException, UnauthorizedException } from '../exceptions'
 import * as UserService from '../services/UserService'
 import TokenType from '../utils/TokenType'
 
@@ -12,19 +11,19 @@ export default async (request: Request, response: Response, next: NextFunction) 
         const token = request.headers.authorization as string
 
         if (!token) {
-            throw new SystemException(Messages.UNAUTHORIZED.message, Messages.UNAUTHORIZED.code)
+            throw new UnauthorizedException()
         }
 
         const decoded = verify(token, process.env.SECRET as string) as TokenType
 
         if (!decoded) {
-            throw new SystemException(Messages.UNAUTHORIZED.message, Messages.UNAUTHORIZED.code)
+            throw new InvalidParameterException('token')
         }
 
         const user = await UserService.findOne(decoded.id)
 
         if (!user) {
-            throw new SystemException(Messages.UNAUTHORIZED.message, Messages.UNAUTHORIZED.code)
+            throw new NotFoundException('user')
         }
 
         request.user = user

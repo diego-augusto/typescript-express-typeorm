@@ -9,7 +9,7 @@
     "test": "jest",
     "prestart": "npm run build",
     "start": "node -r dotenv/config dest/index.js",
-    "tslint:fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'"
+    "lint:fix": "tslint --fix -c ./tslint.json 'src/**/*{.ts,.tsx}'"
   },
   "author": "",
   "license": "ISC",

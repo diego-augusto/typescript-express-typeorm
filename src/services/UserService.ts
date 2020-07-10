@@ -1,8 +1,7 @@
 import { compare } from 'bcryptjs'
 import { getCustomRepository } from 'typeorm'
 import { User } from '../entities/User'
-import Messages from '../exceptions/Messages'
-import SystemException from '../exceptions/SystemException'
+import { NotFoundException } from '../exceptions'
 import { UserRepository } from '../repositories/UserRepository'
 import TokenUtils from '../utils/TokenUtils'
 
@@ -20,7 +19,7 @@ const findOne = async (id: string) =>  {
         return user
     }
 
-    throw new SystemException(Messages.NOT_FOUND.message, Messages.NOT_FOUND.code)
+    throw new NotFoundException('User')
 }
 
 const add = async (user: User) => {
@@ -49,13 +48,13 @@ const sign = async (email: string, password: string) =>  {
     .findOne({ where: { email } })
 
     if (!selectedUser) {
-        throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
+        throw new NotFoundException('User')
     }
 
     const isPasswordValid = await compare(password, selectedUser.password)
 
     if (!isPasswordValid) {
-        throw new SystemException(Messages.WRONG_SIGNIN.message, Messages.WRONG_SIGNIN.code)
+        throw new NotFoundException('User')
     }
 
     const token = TokenUtils.generateToken(selectedUser)

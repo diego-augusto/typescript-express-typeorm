@@ -1,14 +1,13 @@
 import { getCustomRepository } from 'typeorm'
 import { User } from '../entities/User'
-import Messages from '../exceptions/Messages'
-import SystemException from '../exceptions/SystemException'
+import { NotFoundException } from '../exceptions'
 import { ProductRepository } from '../repositories/ProductRepository'
 
-const findAll = async () =>  {
+const findAll = async () => {
     return await getCustomRepository(ProductRepository, process.env.NODE_ENV).find()
 }
 
-const findOne = async (id: string) =>  {
+const findOne = async (id: string) => {
 
     const user = await getCustomRepository(ProductRepository, process.env.NODE_ENV)
         .findOne({ where: { publicId: id } })
@@ -17,14 +16,14 @@ const findOne = async (id: string) =>  {
         return user
     }
 
-    throw new SystemException(Messages.NOT_FOUND.message, Messages.NOT_FOUND.code)
+    throw new NotFoundException('Product')
 }
 
-const add =  async (user: User) => {
+const add = async (user: User) => {
     return await getCustomRepository(ProductRepository, process.env.NODE_ENV).save(user)
 }
 
-const edit = async (id: string, user: User) =>  {
+const edit = async (id: string, user: User) => {
     return await getCustomRepository(ProductRepository, process.env.NODE_ENV).update(id, user)
 }
 
