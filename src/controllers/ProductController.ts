@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import * as ProductService from '../services/ProductService'
+import { ProductService } from '../services'
 
 const getAll = async (request: Request, response: Response, next: NextFunction) => {
     try {
@@ -10,7 +10,7 @@ const getAll = async (request: Request, response: Response, next: NextFunction) 
     }
 }
 
-const getOne =  async (request: Request, response: Response, next: NextFunction) => {
+const getOne = async (request: Request, response: Response, next: NextFunction) => {
     try {
         const users = await ProductService.findOne(request.params.id)
         response.status(200).json(users)
@@ -28,7 +28,7 @@ const add = async (request: Request, response: Response, next: NextFunction) => 
     }
 }
 
-const edit =  async (request: Request, response: Response, next: NextFunction) => {
+const edit = async (request: Request, response: Response, next: NextFunction) => {
     try {
         ProductService.edit(request.params.id, request.body)
         response.status(204).send()

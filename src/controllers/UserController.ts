@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-import * as UserService from '../services/UserService'
+import { UserService } from '../services'
 
 const getAll = async (request: Request, response: Response, next: NextFunction) => {
     try {
-
         const users = await UserService.findAll()
         response.status(200).json(users)
     } catch (error) {
@@ -38,7 +37,7 @@ const edit = async (request: Request, response: Response, next: NextFunction) =>
     }
 }
 
-const remove = async (request: Request, response: Response, next: NextFunction) =>  {
+const remove = async (request: Request, response: Response, next: NextFunction) => {
     try {
         await UserService.remove(request.params.id)
         response.status(204).send()

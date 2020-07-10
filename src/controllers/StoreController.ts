@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import * as StoreService from '../services/StoreService'
+import { StoreService } from '../services'
 
-const getAll =  async (request: Request, response: Response, next: NextFunction) => {
+const getAll = async (request: Request, response: Response, next: NextFunction) => {
     try {
         const users = await StoreService.findAll()
         response.status(200).json(users)
@@ -37,7 +37,7 @@ const edit = async (request: Request, response: Response, next: NextFunction) =>
     }
 }
 
-const remove =  async (request: Request, response: Response, next: NextFunction) =>  {
+const remove = async (request: Request, response: Response, next: NextFunction) => {
     try {
         await StoreService.remove(request.params.id)
         response.status(204).send()
