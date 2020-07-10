@@ -2,8 +2,8 @@ import { Application } from 'express'
 import request from 'supertest'
 import { Connection, getConnection } from 'typeorm'
 import Setup from '../application/Setup'
-import { User } from '../entities/User'
-import { UserRepository } from '../repositories/UserRepository'
+import { User } from '../entities'
+import { UserRepository } from '../repositories'
 
 let app: Application
 let connection: Connection

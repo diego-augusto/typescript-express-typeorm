@@ -2,10 +2,8 @@ import { Application } from 'express'
 import request from 'supertest'
 import { Connection, getConnection } from 'typeorm'
 import Setup from '../application/Setup'
-import { Store } from '../entities/Store'
-import { User } from '../entities/User'
-import { StoreRepository } from '../repositories/StoreRepository'
-import { UserRepository } from '../repositories/UserRepository'
+import { Store, User } from '../entities'
+import { StoreRepository, UserRepository } from '../repositories'
 import TokenUtils from '../utils/TokenUtils'
 
 let app: Application
