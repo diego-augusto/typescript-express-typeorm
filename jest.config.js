@@ -1,5 +1,6 @@
 module.exports = {
+	collectCoverageFrom: ['<rooDir>/src/**/*.ts'],
 	preset: 'ts-jest',
 	testEnvironment: 'node',
-	setupFiles: ['./jest/setupFiles.js'],
+	setupFiles: ['<rooDir>/jest/setupFiles.js'],
 };
